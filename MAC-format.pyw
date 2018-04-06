@@ -1,14 +1,14 @@
+#!/usr/bin/python
+# coding=utf-8
 import tkinter as tk
 import re
-
-
 
 MAC = ""
 MACs = []
 
 
 def window_deleted():
-    print(u'Окно закрыто')
+    print("Окно закрыто")
     root.quit()
 
 
@@ -23,7 +23,7 @@ def format_mac(MACs=MACs):
         # print(MACs)
         message("Ok!")
     else:
-        MACs = [MAC[i:i+2] for i in range(0, len(MAC), 2)]
+        MACs = [MAC[i:i + 2] for i in range(0, len(MAC), 2)]
         # print(MACs)
         message("Ok!")
 
@@ -40,21 +40,20 @@ def format_mac(MACs=MACs):
 
 def message(text='', error=False):
     info.config(text=text)
-    if error == True:
+    if error is True:
         info.config(fg='red')
     else:
         info.config(fg='green')
 
 
-
 root = tk.Tk()
 root.title(u'MAC-Format')
-root.geometry('250x200+500+300') # ширина=500, высота=400, x=300, y=200
-root.protocol('WM_DELETE_WINDOW', window_deleted) # обработчик закрытия окна
+root.geometry('250x200+500+300')  # ширина=500, высота=400, x=300, y=200
+root.protocol('WM_DELETE_WINDOW', window_deleted)  # обработчик закрытия окна
 root.resizable(False, False)
 head = tk.Label(root, text="Insert the MAC address:", font='Arial 15')
 head.pack()
-insert_MAC = tk.Entry(root, width=16,font='Arial 14')
+insert_MAC = tk.Entry(root, width=16, font='Arial 14')
 insert_MAC.focus_set()
 insert_MAC.pack()
 button_format = tk.Button(root, text='Format MAC', width=10, height=1, fg='green', font='arial 14', command=format_mac)
