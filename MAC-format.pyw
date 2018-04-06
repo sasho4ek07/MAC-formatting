@@ -3,8 +3,8 @@
 import tkinter as tk
 import re
 
-MAC = ""
-MACs = []
+# MAC = ""
+# MACs = []
 
 
 def window_deleted():
@@ -12,9 +12,12 @@ def window_deleted():
     root.quit()
 
 
-def format_mac(MACs=MACs):
+def format_mac():
+    MACs = []
     MAC = insert_MAC.get().strip().upper()
-    print(len(MAC))
+    # print(len(MAC))
+    # TODO Добавить проверку на превышение длинны 12
+    # TODO Убирать пробельные символы
     if len(MAC) > 17 or len(MAC) < 12:
         # print('ERROR!')
         message("ERROR\n Format is not correct!", True)
@@ -26,7 +29,6 @@ def format_mac(MACs=MACs):
         MACs = [MAC[i:i + 2] for i in range(0, len(MAC), 2)]
         # print(MACs)
         message("Ok!")
-
     MAC1.config(state='normal')
     MAC1.delete(0, tk.END)
     MAC1.insert(0, '-'.join(MACs))
