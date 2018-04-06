@@ -6,6 +6,8 @@ import re
 # MAC = ""
 # MACs = []
 
+# TODO sdsfsdfa
+
 
 def window_deleted():
     print("Окно закрыто")
