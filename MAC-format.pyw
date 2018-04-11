@@ -5,26 +5,25 @@ import re
 
 
 def window_deleted():
-    print("Окно закрыто")
+    # print("Окно закрыто")
     root.quit()
 
 
 def format_mac():
     MACs = []
     MAC = insert_MAC.get().strip().upper().replace(' ', '')  # получаем строку без пробелов и верхнем регистре
-    print(len(MAC))
-    # TODO Добавить проверку на превышение длинны 12
-    if len(MAC) > 17 or len(MAC) < 12:
-        # print('ERROR!')
-        message("ERROR\n Format is not correct!", True)
-    elif len(MAC) == 17:
+    # print(len(MAC))
+    if len(MAC) == 17:
         MACs = re.split(r'[:;,.-]+', MAC)
         # print(MACs)
         message("Ok!")
-    else:
+    elif len(MAC) == 12:
         MACs = [MAC[i:i + 2] for i in range(0, len(MAC), 2)]
         # print(MACs)
         message("Ok!")
+    else:
+        # print('ERROR!')
+        message("ERROR\n Format is not correct!", True)
 
     MAC1.config(state='normal')
     MAC1.delete(0, tk.END)
