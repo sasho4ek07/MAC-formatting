@@ -11,10 +11,9 @@ def window_deleted():
 
 def format_mac():
     MACs = []
-    MAC = insert_MAC.get().strip().upper()
+    MAC = insert_MAC.get().strip().upper().replace(' ', '')  # получаем строку без пробелов и верхнем регистре
     print(len(MAC))
     # TODO Добавить проверку на превышение длинны 12
-    # TODO Убирать пробельные символы
     if len(MAC) > 17 or len(MAC) < 12:
         # print('ERROR!')
         message("ERROR\n Format is not correct!", True)
