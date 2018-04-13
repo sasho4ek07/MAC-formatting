@@ -9,6 +9,41 @@ def window_deleted():
     root.quit()
 
 
+def paste_of_buffer():
+    # c = tk.Tk()
+    # c.withdraw()
+    try:
+        cb = root.clipboard_get()
+        # print(cb)
+        # c.update()
+    except tk.TclError:
+        cb = ''
+    # return cb
+    insert_MAC.config(state='normal')
+    insert_MAC.delete(0, tk.END)
+    insert_MAC.insert(0, cb)
+
+
+def copy_in_buffer_mac1():
+    # cb = tk.Tk()
+    # cb.withdraw()
+    # cb.clipboard_clear()
+    text = MAC1.get()
+    root.clipboard_clear()
+    root.clipboard_append(text)
+    # cb.update()
+    # cb.destroy()
+
+
+def copy_in_buffer_mac2():
+    # cb = tk.Tk()
+    # cb.withdraw()
+    # cb.clipboard_clear()
+    text = MAC2.get()
+    root.clipboard_clear()
+    root.clipboard_append(text)
+
+
 def format_mac():
     MACs = []
     MAC = insert_MAC.get().strip().upper().replace(' ', '')  # получаем строку без пробелов и верхнем регистре
@@ -46,30 +81,68 @@ def message(text='', error=False):
 
 root = tk.Tk()
 root.title(u'MAC-Format')
-root.geometry('250x200+500+300')  # ширина=500, высота=400, x=300, y=200
+root.geometry('255x235+550+250')  # ширина=500, высота=400, x=250, y=200
 root.protocol('WM_DELETE_WINDOW', window_deleted)  # обработчик закрытия окна
+# root.rowconfigure(0, height=1)
 root.resizable(False, False)
 
 head = tk.Label(root, text="Insert the MAC address:", font='Arial 15')
-head.pack()
 
-insert_MAC = tk.Entry(root, width=16, font='Arial 14')  # окно ввода мак-адреса
+insert_MAC = tk.Entry(root,
+                      width=16,
+                      font='Arial 14')  # окно ввода мак-адреса
 insert_MAC.focus_set()
-insert_MAC.pack()
+
+button_paste = tk.Button(root, text="Paste",
+                         width=7,
+                         # height=1,
+                         fg='black',
+                         font='arial 13',
+                         command=paste_of_buffer)
 
 button_format = tk.Button(root, text='Format MAC',
-                          width=10, height=1,
+                          width=15,
+                          # height=1,
                           fg='green',
                           font='arial 14',
                           command=format_mac)
-button_format.pack()
 
-MAC1 = tk.Entry(root, width=16, font='Arial 15', state='readonly')
-MAC2 = tk.Entry(root, width=16, font='Arial 15', state='readonly')
-MAC1.pack()
-MAC2.pack()
+MAC1 = tk.Entry(root, width=16,
+                font='Arial 15', state='readonly')
 
-info = tk.Label(root, font='Arial 15', fg='green')
-info.pack()
+MAC2 = tk.Entry(root, width=16,
+                font='Arial 15', state='readonly')
 
+mac1_copy = tk.Button(root, text="Copy",
+                      width=7, height=1,
+                      fg='black',
+                      font='arial 13',
+                      command=copy_in_buffer_mac1)
+
+mac2_copy = tk.Button(root, text="Copy",
+                      width=7, height=1,
+                      fg='black',
+                      font='arial 13',
+                      command=copy_in_buffer_mac2)
+
+info = tk.Label(root, font='Arial 13', fg='green', text="ИНФО")
+info.config(text="")
+button_exit = tk.Button(root, text='Exit',
+                        width=7,
+                        height=3,
+                        fg='black',
+                        font='arial 13',
+                        command=window_deleted)
+# root.columnconfigure(1, pad=8)
+# root.rowconfigure(5, pad=5)
+head.grid(row=0, column=0, columnspan=3)
+insert_MAC.grid(row=1, column=0, sticky="w")
+button_paste.grid(row=1, column=1, sticky="w")
+button_format.grid(row=2, column=0, columnspan=2)
+MAC1.grid(row=3, column=0, sticky="w")
+MAC2.grid(row=4, column=0, sticky="w")
+mac1_copy.grid(row=3, column=1, sticky="w")
+mac2_copy.grid(row=4, column=1, sticky="w")
+info.grid(row=5, column=0, columnspan=2, sticky="w")
+button_exit.grid(row=5, column=1, sticky="w")
 root.mainloop()
