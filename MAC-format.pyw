@@ -81,6 +81,7 @@ def message(text='', error=False):
 
 root = tk.Tk()
 root.title(u'MAC-Format')
+root.iconbitmap(default='mac.ico')
 root.geometry('255x235+550+250')  # ширина=500, высота=400, x=250, y=200
 root.protocol('WM_DELETE_WINDOW', window_deleted)  # обработчик закрытия окна
 # root.rowconfigure(0, height=1)
